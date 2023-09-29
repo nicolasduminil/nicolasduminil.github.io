@@ -1,6 +1,5 @@
 ---
 title:  "Microservices With Apache Camel and Quarkus (Part 5)"
-search: false
 categories:
   - Java
   - Quarkus
