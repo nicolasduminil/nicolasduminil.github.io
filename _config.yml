@@ -20,7 +20,7 @@ title                    : "Simplex Software"
 title_separator          : "|"
 subtitle                 : "Blog of Nicolas Duminil" # site tagline that appears below site title in masthead
 name                     : "Nicolas DUMINIL"
-description              : "Welcome to my blog"
+description              : "Senior Silver Software Architect"
 url                      : &url "https://nicolasduminil.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "nicolasduminil/nicolasduminil" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
@@ -61,7 +61,7 @@ atom_feed:
   hide                   : # true, false (default)
 search                   : # true, false (default)
 search_full_content      : # true, false (default)
-search_provider          : "google" # lunr (default), algolia, google
+search_provider          : "lunr" # lunr (default), algolia, google
 lunr:
   search_within_pages    : # true, false (default)
 algolia:
@@ -104,9 +104,10 @@ analytics:
 
 # Site Author
 author:
-  name             : "Nicolas DUMINIL"
-  bio              : "Silver software architect and developer"
-  location         : "Paris, France"
+  name: "Nicolas DUMINIL"
+  avatar: "/assets/images/avatar.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  bio: "Silver software architect and developer"
+  location: "Paris, France"
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
