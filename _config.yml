@@ -17,7 +17,7 @@ minimal_mistakes_skin    : "mint" # "air", "aqua", "contrast", "dark", "dirt", "
 # Site Settings
 locale                   : "en-EN"
 title                    : "Simplex Software"
-title_separator          : "|"
+title_separator          : "-"
 subtitle                 : "Blog of Nicolas Duminil" # site tagline that appears below site title in masthead
 name                     : "Nicolas DUMINIL"
 description              : "Senior Silver Software Architect"
@@ -121,6 +121,10 @@ author:
     - label: "LinkedIn"
       icon: "fab fa-fw fa-instagram"
       url: "https://www.linkedin.com/in/duminilnicolas/"
+    - label: "Resume"
+      icon: "far fa-fw fa-file-pdf"
+      url: "/assets/files/resume-nicolas.pdf"
+
 
 # Site Footer
 footer:
