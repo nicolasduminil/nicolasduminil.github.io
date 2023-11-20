@@ -5,6 +5,9 @@ categories:
   - OpenAPI
   - Lambda
   - API Gateway
+tags:
+  - Dzone
+toc: true
 last_modified_at: 2023-04-06T08:05:34-05:00
 ---
 

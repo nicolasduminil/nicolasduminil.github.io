@@ -4,6 +4,9 @@ categories:
   - Jakarta EE
   - Payara
   - Arquillian
+tags:
+  - Dzone
+toc: true
 last_modified_at: 2022-11-15T08:05:34-05:00
 ---
 

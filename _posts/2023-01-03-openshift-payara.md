@@ -5,6 +5,9 @@ categories:
   - Payara
   - Jakarta EE
   - IBM Cloud
+tags:
+  - Dzone
+toc: true
 last_modified_at: 2023-01-03T08:05:34-05:00
 ---
 

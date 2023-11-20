@@ -4,6 +4,9 @@ categories:
   - Java
   - Quarkus
   - Microservices
+tags:
+  - Dzone
+toc: true
 last_modified_at: 2023-09-30T08:05:34-05:00
 ---
 

@@ -4,6 +4,9 @@ categories:
   - Kafka
   - Spring Cloud
   - Java
+tags:
+  - Dzone
+toc: true
 last_modified_at: 2022-12-22T08:05:34-05:00
 ---
 

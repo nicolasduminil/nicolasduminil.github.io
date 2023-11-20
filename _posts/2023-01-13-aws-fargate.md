@@ -5,6 +5,9 @@ categories:
   - Fargate
   - Jakarta EE
   - Copilot
+tags:
+  - Dzone
+toc: true
 last_modified_at: 2023-01-18T08:05:34-05:00
 ---
 

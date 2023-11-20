@@ -4,6 +4,9 @@ categories:
   - Spring Boot
   - Quarkus
   - Java
+tags:
+  - Dzone
+toc: true
 last_modified_at: 2023-03-14T08:05:34-05:00
 ---
 

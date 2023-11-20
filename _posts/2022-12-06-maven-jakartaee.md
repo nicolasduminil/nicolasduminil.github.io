@@ -3,6 +3,9 @@ title:  "A Maven Archetype for Jakarta EE 10 Applications"
 categories: 
   - Jakarta EE
   - Maven
+tags:
+  - Dzone
+toc: true
 last_modified_at: 2022-12-06T08:05:34-05:00
 ---
 

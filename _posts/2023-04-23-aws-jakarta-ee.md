@@ -4,6 +4,9 @@ categories:
   - Jakarta EE
   - AWS
   - Microservices
+tags:
+  - Dzone
+toc: true
 last_modified_at: 2023-04-23T08:05:34-05:00
 ---
 
