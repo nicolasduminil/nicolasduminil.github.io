@@ -1,7 +1,7 @@
 ---
 title:  "Spring Boot vs Eclipse MicroProfile: Resident Set Size (RSS) and Time to First Request (TFR) Comparative"
 categories: 
-  - Spring Boot
+  - SpringBoot
   - Quarkus
   - Java
 tags:

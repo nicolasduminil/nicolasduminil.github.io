@@ -1,8 +1,8 @@
 ---
 title:  "Spring Security OAuth got deprecated. What now ?"
 categories:
-  - Spring Boot
-  - Spring Cloud
+  - SpringBoot
+  - SpringCloud
   - Security
   - OAuth
   - Keycloak

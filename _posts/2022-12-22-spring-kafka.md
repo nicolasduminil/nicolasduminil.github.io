@@ -2,7 +2,7 @@
 title:  "Kafka Integration With Spring Cloud"
 categories: 
   - Kafka
-  - Spring Cloud
+  - SpringCloud
   - Java
 tags:
   - Dzone
