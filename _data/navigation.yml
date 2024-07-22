@@ -12,6 +12,8 @@ main:
     url: '/search'
   - title: "Collections"
     url: /collection-archive/
+  - title: "Online Workshops"
+    url: /workshops
 #- title: "Sitemap"
 #   url: /sitemap/
 
