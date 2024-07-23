@@ -1,11 +1,11 @@
 ---
-title: "Online workshops"
+title: "Online virtual workshops"
 permalink: /workshops/
 layout: archive
 author_profile: true
 ---
 
-# Online Virtual Workshops
+# Reactive Programming for Java Developers Workshop
 
 **Thursday 10th of October 2024, 10:00 - 17:00**
 
