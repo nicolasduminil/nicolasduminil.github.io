@@ -1,15 +1,68 @@
 <form action="https://formspree.io/f/mvgpgdnd" method="POST">
   <label>
-    Your email:
-    <input type="email" name="email">
+    Title:
+    <input type="text" name="title" required>
   </label>
   <label>
-    Your message:
-    <textarea name="message"></textarea>
+    First name:
+    <input type="text" name="firstName" required>
+  </label>
+  <label>
+    Last name:
+    <input type="text" name="lastName" required>
+  </label>
+  <label>
+    Your email:
+    <input type="email" name="email" required>
+  </label>
+  <label>
+    Company:
+    <input type="text" name="company">
+  </label>
+  <label>
+    VAT ID:
+    <input type="text" name="vatid">
+  </label>
+  <label>
+    Street:
+    <input type="text" name="street" required>
+  </label>
+  <label>
+    ZIP Code:
+    <input type="text" name="zipCode" required>
+  </label>
+  <label>
+    Country:
+    <input type="text" name="country" required >
+  </label>
+  <label>
+    Question:
+    <textarea name="question"></textarea>
+  </label>
+  <label>
+    Where did you hear about us ?
+    <textarea name="reference"></textarea>
   </label>
   <button type="submit">Send</button>
 </form>
-
+<footer>
+  <nav>
+    <ul>
+      <li>
+        <a href="https://www.eyrolles.com/Accueil/Auteur/nicolas-duminil-35014/">My published books</a>
+      </li>
+      <li>
+        <a href="https://github.com/nicolasduminil?tab=repositories">My GitHub repositories</a>
+      </li>
+      <li>
+        <a href="http://www.simplex-software.fr/posts/">My blog</a>
+      </li>
+    </ul>
+  </nav>
+  <p>&copy; 2024
+    <a href="https://www.linkedin.com/in/duminilnicolas/">Nicolas Duminil</a>
+  </p>
+</footer>
 <style>
     form {
         display: grid;
