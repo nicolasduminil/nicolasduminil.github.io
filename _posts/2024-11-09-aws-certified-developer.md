@@ -1,5 +1,5 @@
 ---
-title:  "AWS Certified Developer "Official" Study Guide"
+title:  "AWS Certified Developer \"Official\" Study Guide"
 categories:
   - AWS
   - Amazon
