@@ -7,7 +7,7 @@ author_profile: true
 
 # Reactive Programming for Java Developers Workshop
 
-**Thursday 10th of October 2024, 10:00 - 17:00**
+**Thursday 19th of January 2025, 10:00 - 17:00**
 
 Language: English
 
