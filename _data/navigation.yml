@@ -14,6 +14,8 @@ main:
     url: /collection-archive/
   - title: "Online Workshops"
     url: /workshops
+  - title: "My Published Books"
+    url: /books
 #- title: "Sitemap"
 #   url: /sitemap/
 
