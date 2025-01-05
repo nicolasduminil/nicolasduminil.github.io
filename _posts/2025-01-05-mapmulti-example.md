@@ -6,7 +6,7 @@ categories:
 tags:
   - Blog
 toc: true
-last_modified_at: 2025-01-06T08:05:34-05:00
+last_modified_at: 2025-01-05T08:05:34-05:00
 ---
 
 Java isn't a functional programming language like Scala, Haskel or Clojure.
