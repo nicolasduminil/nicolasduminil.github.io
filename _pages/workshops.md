@@ -7,7 +7,7 @@ author_profile: true
 
 # Reactive Programming for Java Developers Workshop
 
-**Thursday 19th of January 2025, 10:00 - 17:00**
+**Friday 18th of July 2025, 10:00 - 17:00**
 
 Language: English
 
