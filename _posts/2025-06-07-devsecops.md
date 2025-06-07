@@ -10,7 +10,7 @@ categories:
 tags:
   - Blog
 toc: true
-last_modified_at: 2025-02-10T08:05:34-05:00
+last_modified_at: 2025-06-07T08:05:34-05:00
 ---
 
 # SaC It Up: Dive Deep into DevSecOps with Java, Quarkus and Keycloak
