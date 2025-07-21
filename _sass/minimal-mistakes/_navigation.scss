@@ -216,14 +216,6 @@
     cursor: pointer;
   }
 
-  .visible_links > * {
-    min-width: 0;
-    flex-shrink: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    outline: 1px dotted blue;
-  }
 
   .visible-links {
     display: -webkit-box;
@@ -233,14 +225,9 @@
     -ms-flex-pack: end;
     justify-content: flex-end;
     -webkit-box-flex: 1;
-    -ms-flex: 1 1 auto;
-    flex: 1 1 auto;
+    -ms-flex: 1;
+    flex: 1;
     overflow: hidden;
-    white-space: nowrap;
-    min-width: 0;
-    flex-wrap: nowrap;
-    border: 1px dashed red;
-    max-width: 100%;
 
     li {
       -webkit-box-flex: 0;

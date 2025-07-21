@@ -4,20 +4,20 @@ main:
     url: /about
   - title: 'Posts'
     url: /posts/
-  - title: 'Categories'
+  - title: "Videos"
+    url: /videos
+  - title: "Books"
+    url: /books
+  - title: "Workshops"
+    url: /workshops
+  - title: "Categories"
     url: /categories
-  - title: 'Tags'
+  - title: "Tags"
     url: /tags
   - title: "Collections"
     url: /collection-archive/
-  - title: "Workshops"
-    url: /workshops
-  - title: "Books"
-    url: /books
-  - title: "Videos"
-    url: /videos
-  - title: 'Search'
-    url: '/search'
-#- title: "Sitemap"
-#   url: /sitemap/
+  - title: "Search"
+    url: /search
+  - title: "Sitemap"
+    url: /sitemap/
 
