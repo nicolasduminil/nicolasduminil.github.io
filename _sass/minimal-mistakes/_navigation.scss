@@ -224,10 +224,12 @@
     -ms-flex-pack: end;
     justify-content: flex-end;
     -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
     overflow: hidden;
-
+    white-space: nowrap;
+    min-width: 0;
+    flex-wrap: nowrap;
     li {
       -webkit-box-flex: 0;
       -ms-flex: none;
