@@ -39,8 +39,8 @@ is required in order to take advantage of this workshop, prior knowledge of reac
 ## Tools, toolkits, libraries, stacks and frameworks used during the workshop
 
   1. Java 21.
-  2. Quarkus 3.11
-  3. Eclipse MicroProfile 6.1 specifications implemented by Quarkus
+  2. Quarkus 3.25
+  3. Eclipse MicroProfile specifications implemented by Quarkus
   4. `java.net` classes for network applications
   5. `java.nio` classes for non-blocking network applications
   6. Netty 4.1 framework for asynchronous event-driven network applications
