@@ -23,7 +23,11 @@ This is the 1st episode of our playlist where we demonstrate the Aggregator, whi
 
 ### [Enterprise Integration Patterns: Back to Fundamentals - The Canonical Data Model](https://youtu.be/pJts1bQVT3k)
 
-In this episode of our playlist where we demonstrate the Canonical Data Model, which is the next pattern, in alphabetical order, in the Hohpe and Woolf "black book".
+In this episode of our playlist we demonstrate the Canonical Data Model, which is the next pattern, in alphabetical order, in the Hohpe and Woolf "black book".
+
+### [Enterprise Integration Patterns: Back to Fundamentals - The Content Enricher](https://youtu.be/Y2yDekoiy9g)
+
+In this episode of our playlist we demonstrate the Content Enricher, one of the most interesting enterprise integration patterns in the Hohpe and Woolf "black book".
 
 ## [Java: From Imperative to Functional - A Complete Use Case](https://youtu.be/xGE7IAL2RG4 )
 
