@@ -888,3 +888,11 @@ The following `kubectl` commands can be used to verify the EKS cluster deploymen
   3. View the monitoring pipeline log file
 
     aws logs tail /aws/codebuild/CustomerServiceBuild0A9B7C3-YIk2RDA0JP1B --since 30m --follow --region eu-west-3
+
+## Conclusion
+
+This project demonstrates a production-ready approach to deploying containerized Quarkus applications on AWS EKS with Fargate, leveraging Infrastructure as Code through the AWS CDK. By combining Kubernetes orchestration with serverless compute, we achieve operational simplicity without sacrificing the flexibility and portability that Kubernetes provides. The automated CI/CD pipeline ensures consistent deployments from code commit to production, while the comprehensive monitoring and troubleshooting capabilities enable reliable operations at scale. Whether you're migrating from ECS to EKS or building cloud-native applications from scratch, this architecture provides a solid foundation for modern microservices deployment on AWS.
+
+[Source code](https://github.com/nicolasduminil/aws-cdk-quarkus.git)
+
+
