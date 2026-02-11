@@ -208,7 +208,7 @@ If you want to give it a try, proceed as follows:
 
 Then, go to http://localhost:8080 and the following screen will be displayed in your browser:
 
-![Live samples of the PrimeFaces with Quarkus](/assetes/images/fig2.png "Live samples of the PrimeFaces with Quarkus")
+![Live samples of the PrimeFaces with Quarkus](/assets/images/fig2.png "Live samples of the PrimeFaces with Quarkus")
 
 Here, you are given the chance to exercice most of Jakarta Faces and its
 implementation Mojara and PrimeFaces, and to see how they work in a modern Java
