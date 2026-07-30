@@ -5,7 +5,7 @@ layout: archive
 author_profile: true
 ---
 
-## [Enterprise Integration Patterns: Back to Fundaments](https://tinyurl.com/bdzkyktc)
+## [Enterprise Integration Patterns: Back to Fundaments](https://www.youtube.com/watch?v=Jj3Rgzy0QX4&list=PLWe0ENETlkFxsejgFzzBi3EqAZoFFTtU1&index=2)
 
 This playlist contains several video clips that aim at demonstrating how to
 implement the Hohpe and Woolf *black book* design patterns, in Java, with Camel
