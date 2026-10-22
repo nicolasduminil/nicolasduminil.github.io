@@ -12,13 +12,14 @@ tags:
   - Substack
   - HackerNoon
 toc: true
-last_modified_at: 2026-10-19T08:05:34-05:00
+last_modified_at: 2026-10-22T08:05:34-05:00
 ---
+
 ## Abstract
 
 The problem of making several independent systems agree on a single outcome is
 older than most of the technology used to solve it. Historically, one of the 
-first protocol able to provide this synchronization was 2PC (*two-phase commit*)
+first protocols able to provide this synchronization was 2PC (*two-phase commit*)
 that the application servers era made an ordinary feature of enterprise development.
 Later lightweight frameworks, service-oriented and microservices architectures
 have made the same guarantee considerably harder to obtain.  
@@ -27,8 +28,9 @@ Transaction Processing to the present situation. It then examines two working
 implementations of an identical use case, one using XA and two-phase commit, the
 other using the saga pattern, as specified by MicroProfile LRA, and compares them
 on evidence rather than on preference. The accompanying source code is available
-in the [repository](https://github.com/nicolasduminil/quarkus-distributed-tx.git), where both implementations expose the
-same REST contract and are exercised by the same test suite.
+in the [`quarkus-distributed-tx`](https://github.com/nicolasduminil/quarkus-distributed-tx)
+repository, where both implementations expose the same REST contract and are
+exercised by the same test suite.
 
 ---
 
@@ -55,7 +57,7 @@ three roles namely the application program, the transaction manager and the
 resource manager. The following two interfaces have been defined:
 
   - the TX (*Transaction Demarcation*) interface governs how an application demarcates a transaction;
-  - the XA (*eXtended Architecture) interface defines how the transaction manager drives the resource manager through the phases of the commit;
+  - the XA (*eXtended Architecture*) interface defines how the transaction manager drives the resource manager through the phases of the commit.
 
 Once the XA specifications existed, a transaction manager written by one
 vendor could coordinate a database written by another, and the industry acquired
@@ -106,7 +108,7 @@ distributed systems. This is a real cost and it is frequently underestimated.
 The X/Open model assumed a particular shape: an application, a transaction
 manager and some resource managers, generally within reach of one another. What
 it did not address is the case that the OO (*object-oriented*) paradigm made 
-central the co,cept of transactions spanning objects that reside in different 
+central the concept of transactions spanning objects that reside in different 
 processes, on different machines, supplied by different vendors, and invoked 
 remotely as though they were local.
 
@@ -115,7 +117,7 @@ mid-1990s with the OTS (*Object Transaction Service*), adopted as one of the
 CORBAservices. OTS described the roles of a distributed transaction in CORBA's
 IDL (*Interface Definition Language*). The protocol underneath had not changed,
 the same resources, participants and quorum, in Gray's sense, were at work and 
-no new algorithms has been proposed. OTS only specified how the 2PC participants
+no new algorithms have been proposed. OTS only specified how the 2PC participants
 might be distributed objects. And it settled the question that X/Open had left
 thin, namely how two transaction managers, from different vendors, should
 interoperate.
@@ -353,7 +355,7 @@ When the method returns, Narayana performs the protocol.
 
 Upon commit the transaction manager calls `prepare` on both branches. Each
 PostgreSQL instance executes `PREPARE TRANSACTION`, writing the changes durably in
-a state from which they can still either be commited or rolled back. If both 
+a state from which they can still either be committed or rolled back. If both 
 branches vote affirmatively, the transaction manager writes its decision to 
 its object store. This is the point at which the outcome becomes irrevocable
 and then the transaction manager calls `commit` on both branches, each of which
@@ -371,12 +373,12 @@ process returns.
 
 The transfer service interacts directly with the `accounts` database. It does not
 ask anything of the account service, it holds the resource manager instead. This
-means that it owns a connection to the `accounts` database and enlist it in its
+means that it owns a connection to the `accounts` database and enlists it in its
 own transaction. The transfer service opens that connection, modifies the account
 rows itself through its own persistence layer, and the `XAResource` behind that
 connection becomes a branch of the transaction that the transfer service began.
 The account service plays no part. Its code does not run and it is not informed.
-The commit decision belongs to the transfer service's transaction manager
+The commit decision belongs to the transfer service's transaction manager.
 
 This is not an oversight but a requirement. `prepare` and `commit` are operations
 on an `XAResource`, and a service boundary exposes no equivalent of them. HTTP
@@ -465,10 +467,12 @@ released are passed over rather than settled again.
       ...
     }  
 
-## 11 The Project
+## 11. The Project
 
-The project that illustrates this article is a Quarkus workshop showing a simple
-money transfer use case in the two ways that we discussed along the article:
+The project that illustrates this article is a Quarkus workshop, available at
+[`quarkus-distributed-tx`](https://github.com/nicolasduminil/quarkus-distributed-tx),
+showing a simple money transfer use case in the two ways that we discussed along
+the article:
 
 - **XA / 2PC** (`transfer`, port 8080): a genuine 2PC across two XA
   datasources, coordinated by Narayana.
@@ -561,9 +565,9 @@ mvn clean verify
 
 Here is the list of the integration tests provided with the project:
 
-- `AbstractMoneyTransferContractIT` (transfer-tck): this is and abstract class serving as a superclass for all the integration tests. It defines the shared scenarios: happy
+- `AbstractMoneyTransferContractIT` (transfer-tck): this is an abstract class serving as a superclass for all the integration tests. It defines the shared scenarios: happy
   path, insufficient funds, unknown account, listing
-  and deletion. Assertions are on deltas*, and the balance/count probes are
+  and deletion. Assertions are on deltas, and the balance/count probes are
   abstract, because the XA service can read the databases directly while the
   saga service can only get them by calling the API over HTTP. Failure paths assert the response body
   as well as the status. Both stacks must return the business error rather than
@@ -612,7 +616,7 @@ that is only meaningful from its own side of the network.
 
 A Swagger interface is also available with each API, as explained at §11 Endpoints.
 Additionally, the smoke test script `test-all.sh` is a very convenient way to make
-sure to cover all the test case possible combinations. here below is an example
+sure to cover all the test case possible combinations. Here below is an example
 of how to run it:
 
 ```bash
@@ -761,7 +765,7 @@ Two entries deserve comment.
 
 The row concerning failure is frequently presented as an advantage of 2PC on the
 grounds that the rollbacks are clean. It may equally be regarded as a loss of 
-information. A canceled saga records that a transfer was attempted and
+information. A cancelled saga records that a transfer was attempted and
 subsequently undone, which is an audit trail that a rollback cannot produce
 because the rows were never committed. Whether this constitutes an advantage
 depends entirely on whether the business is required to account for attempts as
@@ -800,7 +804,7 @@ back out of application code and into infrastructure, which is where the industr
 placed it in the first place, some thirty years ago, and where it appears to
 belong.
 
-An important development merit attention: the growing use of the outbox
+Two developments merit attention. The first is the growing use of the outbox
 pattern with event streaming, which achieves atomicity between a database change
 and a message by writing both to the same database and publishing asynchronously.
 This is neither 2PC nor a saga in the classical sense, and for many integration
@@ -810,9 +814,9 @@ some prospect that compensation logic might eventually be checked rather than
 merely reviewed.
 
 The underlying tension, however, is not a matter of technology and will not be
-resolved by this development. Atomicity across independent parties
+resolved by these developments. Atomicity across independent parties
 requires either that they transfer autonomy to a coordinator or that they accept
-observable intermediate states. The FLP (*Fisher, Lynch and Paterson*) result and its relatives indicate that no
+observable intermediate states. The FLP (*Fischer, Lynch and Paterson*) result and its relatives indicate that no
 implementation will escape this choice. What improves is the quality of the tools
 with which each side of the choice may be pursued, and the clarity with which the
 choice is presented to the practitioners.
@@ -832,6 +836,6 @@ operating the latter, without compensations.
 - X/Open. *Distributed Transaction Processing: The XA Specification*.
 - Object Management Group. *Object Transaction Service*.
 - Eclipse MicroProfile. *MicroProfile LRA Specification*.
-- The accompanying source code, `quarkus-distributed-tx`, containing both
-  implementations, the shared contract test suite and a Docker Compose deployment
-  that runs the two stacks side by side.
+- The accompanying source code, [`quarkus-distributed-tx`](https://github.com/nicolasduminil/quarkus-distributed-tx),
+  containing both implementations, the shared contract test suite and a Docker
+  Compose deployment that runs the two stacks side by side.
