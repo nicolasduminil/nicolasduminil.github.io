@@ -21,7 +21,7 @@ title_separator          : "-"
 subtitle                 : "Blog of Nicolas Duminil" # site tagline that appears below site title in masthead
 name                     : "Nicolas DUMINIL"
 description              : "Senior Silver Software Architect"
-url                      : &url "https://nicolasduminil.github.io" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+url                      : &url "https://www.simplex-software.fr" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
 repository               : "nicolasduminil/nicolasduminil" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : "/assets/images/simplex-software2.png" # path of fallback teaser image, e.g. "/assets/images/500x300.png"
