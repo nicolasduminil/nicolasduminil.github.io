@@ -66,9 +66,8 @@
     and 23 releases, with special attention to the evolution of Java's executor framework and
     its role in managing concurrent operations efficiently.
 
-- title: "AWS Lambda : Développez des micro-services en Java"
-  subtitle: "sur la plateforme serverless d'Amazon"
-  cover: /assets/images/books/lambda.jpg
+- title: "AWS Lambda : Développez des micro-services en Java sur la plateforme serverless d'Amazon"
+  cover: /assets/images/books/aws-lambda.jpg
   language: French
   formats:
     - label: Buy on Amazon
