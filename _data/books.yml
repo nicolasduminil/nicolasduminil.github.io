@@ -56,7 +56,7 @@
   language: English
   formats:
     - label: Paperback
-      url: https://www.amazon.fr/dp/B0DPJ1ZFLS
+      url: https://www.amazon.com/dp/B0DPJ1ZFLS
     - label: Kindle
       url: https://shorturl.at/wEqNz
   description: >
