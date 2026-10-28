@@ -58,7 +58,7 @@
     - label: Paperback
       url: https://www.amazon.com/dp/B0DPJ1ZFLS
     - label: Kindle
-      url: https://shorturl.at/wEqNz
+      url: https://www.amazon.com/dp/B0DPJ1XY1Q
   description: >
     A booklet on concurrent programming techniques in Java, with a particular focus on race
     condition management through multi-threading and executors. It explores modern concurrency
