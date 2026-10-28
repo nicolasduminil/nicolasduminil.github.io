@@ -1,0 +1,96 @@
+# Published books, newest first. The first entry is shown as the featured book.
+#
+# Fields:
+#   title       - book title
+#   subtitle    - optional tagline shown under the title
+#   cover       - path to the cover image (portrait, ideally ~600px wide)
+#   language    - "English" or "French"
+#   formats     - list of { label, url } purchase links; the first one is also the title link
+#   description - Markdown text
+#   highlights  - optional list of bullet points ("What's inside")
+
+- title: "Java AI Frameworks"
+  subtitle: "A hands-on comparison of Spring AI and LangChain4j"
+  cover: /assets/images/books/java-ai-frameworks.jpg
+  language: English
+  formats:
+    - label: "Ebook on Leanpub"
+      url: https://leanpub.com/javaaiframeworks
+  description: >
+    Spring AI or LangChain4j? This book answers by building the same application three ways:
+    Spring AI on Spring Boot, LangChain4j on Spring Boot and LangChain4j on Quarkus, with every
+    capability held to one shared conformance test. Code-first, running against a local model
+    where possible, with complete Maven projects available on GitHub. Written for Java developers
+    and architects who are choosing, or already using, an AI stack. No machine-learning
+    background needed.
+  highlights:
+    - Build an AI service in three stacks and grade them with one shared test
+    - Ground answers in your own documents with RAG and tune retrieval
+    - Add memory and tools, and reach external systems over the Model Context Protocol
+    - Add vision, audio, structured output, observability and security
+    - Move from assistants to autonomous agents
+
+- title: "50 Shades of Quarkus RESTful Services"
+  subtitle: "A deep dive into the Java RESTful services world"
+  cover: /assets/images/books/quarkus.jpg
+  language: English
+  formats:
+    - label: "Paperback, hardcover & Kindle"
+      url: https://shorturl.at/pwCfN
+  description: >
+    Dedicated to software architects and developers who think that the allegedly "no-code"
+    solutions are rubbish and that ML and LLM based tools, while unavoidable nowadays, aren't
+    meant to generate end-to-end code. You don't need to be a Java champion to read this
+    booklet, just be willing to become one. Ready?
+  highlights:
+    - Historical approach of RESTful services, from the RPC/CORBA/DCOM ancestors up to date
+    - Quarkus RESTful services basics and annotations
+    - Eclipse MicroProfile implementation by Quarkus
+    - Synchronous, asynchronous and reactive RESTful services and clients
+    - Anatomy of enterprise grade applications
+    - Quarkus microservices based implementation
+    - Unit, integration and end-to-end testing
+
+- title: "50 Shades of Java Executors"
+  cover: /assets/images/books/executors.jpg
+  language: English
+  formats:
+    - label: Paperback
+      url: https://shorturl.at/ZekHg
+    - label: Kindle
+      url: https://shorturl.at/wEqNz
+  description: >
+    A booklet on concurrent programming techniques in Java, with a particular focus on race
+    condition management through multi-threading and executors. It explores modern concurrency
+    patterns and implementations, highlighting the latest features introduced in the Java 21
+    and 23 releases, with special attention to the evolution of Java's executor framework and
+    its role in managing concurrent operations efficiently.
+
+- title: "AWS Lambda : Développez des micro-services en Java"
+  cover: /assets/images/books/lambda.jpg
+  language: French
+  formats:
+    - label: Buy
+      url: https://shorturl.at/PDGMa
+  description: >
+    A complete guide to the Serverless technology as implemented by AWS Lambda. It demonstrates
+    how to develop and deploy enterprise grade micro-services using Quarkus.
+
+- title: "AWS : Gérez votre infrastructure sur la plateforme cloud d'Amazon"
+  cover: /assets/images/books/aws.jpg
+  language: French
+  formats:
+    - label: Buy
+      url: https://shorturl.at/U9qGW
+  description: >
+    A long journey through the AWS platform: its configuration, administration and deployment.
+
+- title: "J2EE avec JBuilder 7 Enterprise"
+  cover: /assets/images/books/j2ee.jpg
+  language: French
+  formats:
+    - label: Buy
+      url: https://shorturl.at/TOyy8
+  description: >
+    My first book on Java Enterprise, today known as Jakarta EE, formerly Java EE and, even
+    more formerly, J2EE.

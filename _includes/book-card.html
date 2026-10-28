@@ -1,0 +1,28 @@
+{% assign book = include.book %}
+<article class="book-card{% if include.featured %} book-card--featured{% endif %}">
+  <a class="book-card__cover" href="{{ book.formats[0].url }}" target="_blank" rel="noopener">
+    <img src="{{ book.cover | relative_url }}" alt="Cover of {{ book.title }}" loading="lazy">
+  </a>
+  <div class="book-card__body">
+    {% if include.featured %}<span class="book-card__ribbon">Latest</span>{% endif %}
+    <h2 class="book-card__title">
+      <a href="{{ book.formats[0].url }}" target="_blank" rel="noopener">{{ book.title }}</a>
+    </h2>
+    {% if book.subtitle %}<p class="book-card__subtitle">{{ book.subtitle }}</p>{% endif %}
+    <p class="book-card__meta">
+      <span class="book-card__tag">{{ book.language }}</span>
+    </p>
+    <div class="book-card__description">{{ book.description | markdownify }}</div>
+    {% if book.highlights and include.featured %}
+    <h3 class="book-card__highlights-title">What's inside</h3>
+    <ul class="book-card__highlights">
+      {% for item in book.highlights %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+    <p class="book-card__actions">
+      {% for format in book.formats %}
+      <a class="btn {% if forloop.first %}btn--primary{% else %}btn--inverse{% endif %}" href="{{ format.url }}" target="_blank" rel="noopener">{{ format.label }}</a>
+      {% endfor %}
+    </p>
+  </div>
+</article>
