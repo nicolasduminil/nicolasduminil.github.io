@@ -8,6 +8,10 @@ main:
     url: /videos
   - title: "Books"
     url: /books
+  # Workshops are hidden: uncomment these two lines and remove "published: false"
+  # from _pages/workshops.md and _pages/register-now.md to bring them back.
+  # - title: "Workshops"
+  #   url: /workshops
   - title: "Categories"
     url: /categories
   - title: "Tags"
