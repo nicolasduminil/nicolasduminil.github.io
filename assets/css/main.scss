@@ -169,3 +169,20 @@ search: false
     text-align: left;
   }
 }
+
+/* Masthead: keep all the main menu links in the bar on laptop screens */
+
+.greedy-nav {
+  .visible-links a,
+  .hidden-links a {
+    margin: 0 0.6rem;
+  }
+
+  .visible-links {
+    font-size: 0.85em;
+  }
+
+  a.site-title {
+    margin-right: 0.5rem;
+  }
+}

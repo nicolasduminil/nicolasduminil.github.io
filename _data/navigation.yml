@@ -8,8 +8,6 @@ main:
     url: /videos
   - title: "Books"
     url: /books
-  - title: "Workshops"
-    url: /workshops
   - title: "Categories"
     url: /categories
   - title: "Tags"

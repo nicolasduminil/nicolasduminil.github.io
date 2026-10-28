@@ -1,5 +1,6 @@
 ---
 title: "Online virtual workshops"
+published: false
 permalink: /workshops/
 layout: archive
 author_profile: true

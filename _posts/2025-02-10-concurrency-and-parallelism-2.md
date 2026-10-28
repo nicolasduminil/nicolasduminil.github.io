@@ -10,7 +10,6 @@ toc: true
 last_modified_at: 2025-02-10T08:05:34-05:00
 ---
 
-# Concurrency and Parallelism in Java (Part 2)
 
 In a [previous post](http://www.simplex-software.fr/posts-archive/concurrency-and-parallelism/), we've been looking at a couple of interesting
 aspects concerning the concurrency and parallelism in Java. We've seen that, with
@@ -221,5 +220,5 @@ rather than a strict maximum. As long as you're not seeing degraded performance
 or resource exhaustion, having more threads than the calculated optimal can be
 perfectly fine.
 
-If you're interested in these topics then you might like [![50 Shades of Java Executors](/assets/images/executors.jpg)](https://shorturl.at/ohTjM)
+If you're interested in these topics then you might like [![50 Shades of Java Executors](/assets/images/executors.jpg)](https://www.amazon.com/dp/B0DPJ1ZFLS)
 

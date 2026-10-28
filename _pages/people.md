@@ -7,4 +7,4 @@ entries_layout: grid
 classes: wide
 ---
 
-Sample document listing for the collection `_people`.
+A few of the women and men whose ideas shaped computing as we know it, from the first algorithms to the web.

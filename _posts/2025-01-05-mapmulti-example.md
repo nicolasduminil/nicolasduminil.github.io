@@ -218,4 +218,4 @@ A test report showing that all the unit tests have succeeded should be presented
 
 Isn't that cool ?
 
-[![50 Shades of Java Executors](/assets/images/executors.jpg)](https://shorturl.at/ohTjM)
+[![50 Shades of Java Executors](/assets/images/executors.jpg)](https://www.amazon.com/dp/B0DPJ1ZFLS)

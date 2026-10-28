@@ -13,7 +13,6 @@ toc: true
 last_modified_at: 2025-06-07T08:05:34-05:00
 ---
 
-# SaC It Up: Dive Deep into DevSecOps with Java, Quarkus and Keycloak
 
 In the ever advancing world of software industry, code and security often
 feel like antagonistic vectors. But what if security could move at the pace of code ?

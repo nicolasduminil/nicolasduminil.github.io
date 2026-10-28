@@ -3,7 +3,6 @@ title: "Using Anthropic evaluation to check Claude Code plugin efficiency"
 author: "Nicolas Duminil"
 date: 2026-10-23
 tags: [claude-code, ai-assisted-development, java, quarkus, spring-boot, apache-camel, jakarta-ee, evaluation]
-canonical_url: "https://www.simplex-software.fr/<final-path>"
 ---
 
 # Measuring What a Claude Code Skill Contributes

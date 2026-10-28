@@ -252,5 +252,5 @@ the RAM, nor the CPU. In reality, depending on your hardware, the number of virt
 manage in you applications is much higher and it could rise to millions, if you
 can afford to relax the constraints that we applied or if you use thread pools and executors.
 
-If you're interested in these topics then you might like [![50 Shades of Java Executors](/assets/images/executors.jpg)](https://shorturl.at/ohTjM)
+If you're interested in these topics then you might like [![50 Shades of Java Executors](/assets/images/executors.jpg)](https://www.amazon.com/dp/B0DPJ1ZFLS)
 

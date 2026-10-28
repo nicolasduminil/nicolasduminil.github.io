@@ -23,7 +23,7 @@ name                     : "Nicolas DUMINIL"
 description              : "Senior Silver Software Architect"
 url                      : &url "https://www.simplex-software.fr" # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "nicolasduminil/nicolasduminil" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
+repository               : "nicolasduminil/nicolasduminil.github.io" # GitHub username/repo-name e.g. "mmistakes/minimal-mistakes"
 teaser                   : "/assets/images/simplex-software2.png" # path of fallback teaser image, e.g. "/assets/images/500x300.png"
 logo                     : "/assets/images/simplex-software2.png" # path of logo image to display in the masthead, e.g. "/assets/images/88x88.png"
 masthead_title           : "Simplex Software" # overrides the website title displayed in the masthead, use " " for no title
@@ -86,7 +86,7 @@ facebook:
   username               :
   app_id                 :
   publisher              :
-og_image                 : # Open Graph/Twitter default site image
+og_image                 : "/assets/images/simplex-software2.png" # Open Graph/Twitter default site image
 # For specifying social profiles
 # - https://developers.google.com/structured-data/customize/social-profiles
 social:
@@ -112,14 +112,11 @@ author:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
       url: "mailto:nicolas.duminil@simplex-software.fr"
-    - label: "Website"
-      icon: "fas fa-fw fa-link"
-      url: "https://nicolasduminil.github.io"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/nicolasduminil"
     - label: "LinkedIn"
-      icon: "fab fa-fw fa-instagram"
+      icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/duminilnicolas/"
     - label: "Resume"
       icon: "far fa-fw fa-file-pdf"
@@ -133,7 +130,7 @@ footer:
       icon: "fab fa-fw fa-github"
       url: *gitubUrl
     - label: "LinkedIn"
-      icon: "fab fa-fw fa-instagram"
+      icon: "fab fa-fw fa-linkedin"
       url: *linkedinUrl
 
 
