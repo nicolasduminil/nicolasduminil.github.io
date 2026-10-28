@@ -36,7 +36,7 @@
   language: English
   formats:
     - label: "Paperback, hardcover & Kindle"
-      url: https://shorturl.at/pwCfN
+      url: https://www.amazon.com/dp/B0DYZM52M5
   description: >
     Dedicated to software architects and developers who think that the allegedly "no-code"
     solutions are rubbish and that ML and LLM based tools, while unavoidable nowadays, aren't
@@ -56,7 +56,7 @@
   language: English
   formats:
     - label: Paperback
-      url: https://shorturl.at/ZekHg
+      url: https://www.amazon.fr/dp/B0DPJ1ZFLS
     - label: Kindle
       url: https://shorturl.at/wEqNz
   description: >
@@ -80,8 +80,8 @@
   cover: /assets/images/books/aws.jpg
   language: French
   formats:
-    - label: Buy
-      url: https://shorturl.at/U9qGW
+    - label: Buy on Amazon
+      url: https://www.amazon.fr/dp/2409022189
   description: >
     A long journey through the AWS platform: its configuration, administration and deployment.
 
@@ -89,8 +89,8 @@
   cover: /assets/images/books/j2ee.jpg
   language: French
   formats:
-    - label: Buy
-      url: https://shorturl.at/TOyy8
+    - label: Buy on Amazon
+      url: https://www.amazon.fr/dp/2100064568
   description: >
     My first book on Java Enterprise, today known as Jakarta EE, formerly Java EE and, even
     more formerly, J2EE.
