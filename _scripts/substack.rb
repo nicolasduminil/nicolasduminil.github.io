@@ -11,7 +11,9 @@
 # Changes made for Substack:
 #   - tables become aligned monospace blocks (Substack has no tables);
 #   - code blocks lose syntax highlighting (Substack has none);
-#   - site-relative links and images become absolute URLs.
+#   - site-relative links and images become absolute URLs;
+#   - images wrapped in a link are listed at the top, because Substack drops
+#     those links on paste and they have to be added back with Ctrl+K.
 
 require 'cgi'
 require 'date'
@@ -65,6 +67,23 @@ title = meta['title'].to_s
 subtitle = (meta['description'] || meta['excerpt']).to_s
 shown = canonical.sub(%r{\Ahttps?://}, '').chomp('/')
 
+# Substack drops the link around pasted images, so list them for relinking by hand.
+# Kramdown has already HTML-escaped these attribute values.
+linked_images = html.scan(/<a href="([^"]*)">\s*<img\b([^>]*)>\s*<\/a>/).map do |href, attrs|
+  [attrs[/\balt="([^"]*)"/, 1].to_s.then { |alt| alt.empty? ? 'image' : alt }, href]
+end
+relink = if linked_images.empty?
+  ''
+else
+  items = linked_images.map { |alt, href| %(<li>#{alt}: <code>#{href}</code></li>) }.join("\n    ")
+  <<~BOX.chomp
+    <br><br><strong>Relink these images after pasting</strong> (Substack drops their links): in edit mode, click the image once, press Ctrl+K, paste the URL, then Update.
+    <ul>
+    #{items}
+    </ul>
+  BOX
+end
+
 page = <<~HTML
   <!doctype html>
   <html lang="en">
@@ -83,7 +102,7 @@ page = <<~HTML
   <div class="meta">
     <strong>Title:</strong> #{CGI.escapeHTML(title)}<br>
     <strong>Subtitle:</strong> #{CGI.escapeHTML(subtitle)}<br>
-    Copy these two into Substack's title and subtitle fields, then select from the line below to the end and paste it into the post body.
+    Copy these two into Substack's title and subtitle fields, then select from the line below to the end and paste it into the post body.#{relink}
   </div>
   <p><em>This article was originally published on <a href="#{CGI.escapeHTML(canonical)}">#{CGI.escapeHTML(shown)}</a>.</em></p>
   <hr>
@@ -105,5 +124,6 @@ rescue StandardError => e
   warn "Warning: could not check #{canonical} (#{e.class})."
 end
 puts "Substack page:  #{out}"
+linked_images.each { |alt, href| puts "Relink image:   #{CGI.unescapeHTML(alt)} -> #{CGI.unescapeHTML(href)}" }
 
 system('xdg-open', out, out: File::NULL, err: File::NULL) if open_page
