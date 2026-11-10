@@ -1,18 +1,22 @@
 #!/usr/bin/env ruby
 # Turns a blog post into an HTML page whose content can be pasted into the
-# Substack editor, which keeps pasted formatting but does not import Markdown.
+# Substack or Medium editor, which keep pasted formatting but do not import Markdown.
 #
-#   ruby _scripts/substack.rb _posts/2026-11-10-java-ai.md [--no-open]
+#   ruby _scripts/substack.rb _posts/2026-11-10-java-ai.md [--medium] [--no-open]
 #
-# The page is written to ~/substack/<slug>.html (outside /tmp, so a snap
-# Firefox can read it) and opened in the browser. It starts with a line linking
-# to the post on the site, since Substack has no canonical URL setting.
+# The page is written to ~/substack/<slug>.html, or ~/medium/<slug>.html with
+# --medium (outside /tmp, so a snap Firefox can read it), and opened in the
+# browser. A box at the top gives the title, subtitle and the steps to follow.
 #
-# Changes made for Substack:
-#   - tables become aligned monospace blocks (Substack has no tables);
-#   - code blocks lose syntax highlighting (Substack has none);
+# Substack has no canonical URL setting, so its page starts with a line linking
+# to the post on the site. Medium has one (Advanced Settings), so its page
+# leaves that line out and the box gives the URL to enter there instead.
+#
+# Changes made for both:
+#   - tables become aligned monospace blocks (neither editor has tables);
+#   - code blocks lose syntax highlighting (neither editor has it);
 #   - site-relative links and images become absolute URLs;
-#   - images wrapped in a link are listed at the top, because Substack drops
+#   - images wrapped in a link are listed at the top, because both editors drop
 #     those links on paste and they have to be added back with Ctrl+K.
 
 require 'cgi'
@@ -25,8 +29,10 @@ require 'yaml'
 ROOT = File.expand_path('..', __dir__)
 
 post = ARGV.find { |a| !a.start_with?('--') }
-abort "usage: ruby _scripts/substack.rb _posts/<post>.md [--no-open]" unless post && File.file?(post)
+abort "usage: ruby _scripts/substack.rb _posts/<post>.md [--medium] [--no-open]" unless post && File.file?(post)
 open_page = !ARGV.include?('--no-open')
+medium = ARGV.include?('--medium')
+platform = medium ? 'Medium' : 'Substack'
 
 text = File.read(post)
 _, front, body = text.split(/^---\s*$/, 3)
@@ -67,21 +73,41 @@ title = meta['title'].to_s
 subtitle = (meta['description'] || meta['excerpt']).to_s
 shown = canonical.sub(%r{\Ahttps?://}, '').chomp('/')
 
-# Substack drops the link around pasted images, so list them for relinking by hand.
+# Both editors drop the link around pasted images, so list them for relinking by hand.
 # Kramdown has already HTML-escaped these attribute values.
 linked_images = html.scan(/<a href="([^"]*)">\s*<img\b([^>]*)>\s*<\/a>/).map do |href, attrs|
   [attrs[/\balt="([^"]*)"/, 1].to_s.then { |alt| alt.empty? ? 'image' : alt }, href]
 end
+relink_how = if medium
+  'click the image until it has a green border, press Ctrl+K, paste the URL, then press Enter.'
+else
+  'in edit mode, click the image once, press Ctrl+K, paste the URL, then Update.'
+end
 relink = if linked_images.empty?
   ''
 else
-  items = linked_images.map { |alt, href| %(<li>#{alt}: <code>#{href}</code></li>) }.join("\n    ")
+  items = linked_images.map { |alt, href| %(<li>#{alt}: <code>#{href}</code></li>) }.join("\n")
   <<~BOX.chomp
-    <br><br><strong>Relink these images after pasting</strong> (Substack drops their links): in edit mode, click the image once, press Ctrl+K, paste the URL, then Update.
+    <p><strong>Relink these images after pasting</strong> (#{platform} drops their links): #{relink_how}</p>
     <ul>
     #{items}
     </ul>
   BOX
+end
+
+safe_canonical = CGI.escapeHTML(canonical)
+steps = if medium
+  <<~BOX.chomp
+    <p>Type the title as the first line of a new story and the subtitle as the second line, then select everything below this box and paste it after them.</p>
+    <p><strong>Canonical link:</strong> before publishing, open the story's settings, go to Advanced Settings, tick "This story was originally published elsewhere" and enter <code>#{safe_canonical}</code>.</p>
+  BOX
+else
+  "<p>Copy these two into Substack's title and subtitle fields, then select everything below this box and paste it into the post body.</p>"
+end
+notice = if medium
+  ''
+else
+  %(<p><em>This article was originally published on <a href="#{safe_canonical}">#{CGI.escapeHTML(shown)}</a>.</em></p>\n<hr>)
 end
 
 page = <<~HTML
@@ -96,22 +122,24 @@ page = <<~HTML
     pre { background: #f4f4f4; padding: 12px; overflow-x: auto; }
     code { font-family: monospace; }
     .meta { font-family: sans-serif; background: #fff6d6; border: 1px solid #e6c84f; padding: 12px; margin-bottom: 2em; }
+    .meta p { margin: 0.5em 0; }
   </style>
   </head>
   <body>
   <div class="meta">
-    <strong>Title:</strong> #{CGI.escapeHTML(title)}<br>
-    <strong>Subtitle:</strong> #{CGI.escapeHTML(subtitle)}<br>
-    Copy these two into Substack's title and subtitle fields, then select from the line below to the end and paste it into the post body.#{relink}
+  <p><strong>For #{platform}</strong></p>
+  <p><strong>Title:</strong> #{CGI.escapeHTML(title)}<br>
+  <strong>Subtitle:</strong> #{CGI.escapeHTML(subtitle)}</p>
+  #{steps}
+  #{relink}
   </div>
-  <p><em>This article was originally published on <a href="#{CGI.escapeHTML(canonical)}">#{CGI.escapeHTML(shown)}</a>.</em></p>
-  <hr>
+  #{notice}
   #{html}
   </body>
   </html>
 HTML
 
-out_dir = File.join(Dir.home, 'substack')
+out_dir = File.join(Dir.home, platform.downcase)
 FileUtils.mkdir_p(out_dir)
 out = File.join(out_dir, "#{slug}.html")
 File.write(out, page)
@@ -123,7 +151,7 @@ begin
 rescue StandardError => e
   warn "Warning: could not check #{canonical} (#{e.class})."
 end
-puts "Substack page:  #{out}"
+puts "#{"#{platform} page:".ljust(15)} #{out}"
 linked_images.each { |alt, href| puts "Relink image:   #{CGI.unescapeHTML(alt)} -> #{CGI.unescapeHTML(href)}" }
 
 system('xdg-open', out, out: File::NULL, err: File::NULL) if open_page
