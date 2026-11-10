@@ -16,6 +16,8 @@
   formats:
     - label: "Ebook on Leanpub"
       url: https://leanpub.com/javaaiframeworks
+    - label: Buy on Amazon
+      url: https://www.amazon.com/dp/B0HR1T5S4B
   description: >
     Spring AI or LangChain4j? This book answers by building the same application three ways:
     Spring AI on Spring Boot, LangChain4j on Spring Boot and LangChain4j on Quarkus, with every
