@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Nicolas DUMINIL – Resume</title>
+<style>
+  @page { size: A4; margin: 0; }
+  :root {
+    --side: #f5e8e5;
+    --ink: #222;
+    --muted: #555;
+    --accent: #3a78c3;
+    --rule: #e6d9d6;
+    --bar: #333;
+  }
+  * { box-sizing: border-box; }
+  html { background: #fff; }
+  .side-bg { position: fixed; top: 0; left: 0; width: 64mm; height: 297mm; background: var(--side); z-index: 0; }
+  .page { position: relative; z-index: 1; }
+  html, body { margin: 0; padding: 0; }
+  body { background: transparent; }
+  body {
+    font-family: "DejaVu Sans", Verdana, sans-serif;
+    font-size: 8.4pt;
+    line-height: 1.34;
+    color: var(--ink);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  a { color: inherit; text-decoration: none; }
+  /* sidebar background repeated on every page */
+
+  .page { display: grid; grid-template-columns: 64mm 1fr; }
+
+  aside {
+    padding: 8mm 7mm 9mm 8mm;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+  }
+  main {
+    padding: 9mm 9mm 9mm 7mm;
+    box-decoration-break: clone; -webkit-box-decoration-break: clone;
+      }
+
+  /* header */
+  .masthead { background: var(--side); margin: -9mm -9mm 0 -7mm; padding: 9mm 9mm 7mm 7mm; }
+  .masthead h1 { margin: 0; font-size: 30pt; line-height: 1.05; letter-spacing: 0.5px; font-weight: bold; }
+  .masthead p { margin: 3.5mm 0 0; letter-spacing: 3.2px; font-size: 9pt; color: #444; text-transform: uppercase; }
+
+  .photo { width: 34mm; height: 34mm; border-radius: 50%; overflow: hidden; margin: 1mm auto 7mm; }
+  .photo img { width: 100%; height: 100%; object-fit: cover; }
+
+  .contact { list-style: none; margin: 0 0 6mm; padding: 0; color: var(--muted); font-size: 7.8pt; }
+  .contact li { display: flex; align-items: center; gap: 2.5mm; margin-bottom: 2.5mm; }
+  .ico { width: 6mm; height: 6mm; flex: none; border-radius: 50%; background: #2b2b2b; display: flex; align-items: center; justify-content: center; }
+
+  .side-rule { width: 22mm; border: 0; border-top: 1px solid #d8c5c1; margin: 5mm 0; }
+
+  aside h2 { font-size: 10pt; letter-spacing: 1.5px; margin: 6mm 0 3mm; text-transform: uppercase; }
+  .skill { margin: 0 0 3mm; font-size: 7.9pt; }
+  .skill b { color: #111; }
+  .skill.ai { background: #fff; border-left: 2.5px solid var(--accent); padding: 2mm 2.5mm; border-radius: 2px; }
+  .skill.ai b { color: var(--accent); }
+  .thick { border: 0; border-top: 2.5px solid var(--bar); margin: 4mm 0 3mm; }
+  .soft { color: var(--muted); font-size: 7.9pt; margin: 0 0 3mm; }
+
+  .links p { margin: 0 0 3.5mm; color: var(--muted); font-size: 8pt; }
+  .links a { display: block; color: #1a3fa0; text-decoration: underline; font-size: 7pt; word-break: break-all; }
+
+  .lang { margin: 0 0 3.5mm; font-size: 7.5pt; }
+  .lang .track { height: 1.2mm; background: #e2e2e2; margin-top: 1mm; }
+  .lang .fill { height: 100%; background: var(--bar); }
+
+  /* main sections */
+  main h2 {
+    font-size: 10.5pt; letter-spacing: 2.5px; text-transform: uppercase;
+    margin: 5.5mm 0 3mm; padding-bottom: 1.5mm; border-bottom: 1px solid var(--rule);
+    break-after: avoid;
+  }
+  .checks { list-style: none; padding: 0 0 0 5mm; margin: 0; }
+  .checks li { position: relative; padding-left: 5mm; margin-bottom: 0.8mm; }
+  .checks li::before { content: "✓"; position: absolute; left: 0; }
+
+  .job { margin-bottom: 3mm; break-inside: avoid; }
+  .job h3 { margin: 0; font-size: 9.2pt; font-weight: normal; }
+  .job h4 { margin: 0.6mm 0 1.5mm; font-size: 9.2pt; color: var(--accent); }
+  .job ul { margin: 0; padding-left: 4mm; }
+  .job li { margin-bottom: 1mm; }
+  .job.new h3::after {
+    content: "NEW"; font-size: 6pt; font-weight: bold; letter-spacing: 0.6px; color: #fff;
+    background: var(--accent); border-radius: 2px; padding: 0.3mm 1.3mm; margin-left: 2mm; vertical-align: 1px;
+  }
+  .earlier { font-size: 8pt; }
+  .refs { display: block; margin-top: 0.4mm; font-size: 7.2pt; }
+  .refs::before { content: "\2192\00a0"; color: var(--accent); }
+  .refs a { color: #1a3fa0; text-decoration: underline; }
+  main h2.dated { display: flex; justify-content: space-between; align-items: baseline; }
+  main h2.dated span { font-size: 8pt; letter-spacing: 0.5px; text-transform: none; font-weight: bold; color: var(--accent); }
+  .intro { margin: 0 0 3mm; padding: 1.8mm 2.5mm; background: #f7f3f2; border-left: 2.5px solid var(--accent); font-size: 8.2pt; }
+
+  .edu p { margin: 0 0 3mm; }
+  .certs { margin: 0; padding-left: 7mm; columns: 2; column-gap: 6mm; font-size: 8pt; }
+  .certs li { margin-bottom: 1mm; }
+
+  /* books — same structure as the site's book cards */
+  .books-intro { color: var(--muted); margin: 0 0 3mm; font-style: italic; }
+  .book-card {
+    display: flex; gap: 4mm; padding: 3mm; border: 1px solid var(--rule); border-radius: 4px;
+    background: #fff; break-inside: avoid;
+  }
+  .book-card__cover { flex: 0 0 15mm; }
+  .book-card__cover img { display: block; width: 100%; aspect-ratio: 2 / 3; object-fit: cover; border-radius: 2px; box-shadow: 1.5px 2px 5px rgba(0,0,0,0.25); }
+  .book-card__body { flex: 1; min-width: 0; }
+  .book-card__ribbon {
+    display: inline-block; margin-bottom: 1.2mm; padding: 0.3mm 1.6mm; border-radius: 2px;
+    background: var(--accent); color: #fff; font-size: 6.3pt; font-weight: bold; letter-spacing: 0.6px; text-transform: uppercase;
+  }
+  .book-card__title { margin: 0 0 0.6mm; font-size: 8.4pt; line-height: 1.3; }
+  .book-card__subtitle { margin: 0 0 1mm; color: var(--muted); font-style: italic; font-size: 7.6pt; }
+  .book-card__meta { margin: 0 0 1mm; font-size: 7pt; color: var(--muted); }
+  .book-card__tag { display: inline-block; padding: 0 1.6mm; border: 1px solid var(--accent); border-radius: 3mm; color: var(--accent); font-size: 6.5pt; margin-right: 1.5mm; }
+  .book-card__description { margin: 0 0 1.2mm; font-size: 7.7pt; }
+  .book-card__highlights-title { margin: 1.5mm 0 0.6mm; font-size: 7.8pt; }
+  .book-card__highlights { margin: 0 0 1.5mm; padding-left: 4mm; font-size: 7.6pt; }
+  .book-card__highlights li { margin-bottom: 0.3mm; }
+  .book-card__actions { margin: 0; }
+  .btn {
+    display: inline-block; margin: 0.6mm 1.5mm 0 0; padding: 0.6mm 2.4mm; border-radius: 2px;
+    font-size: 6.8pt; font-weight: bold; border: 1px solid var(--accent);
+  }
+  .btn--primary { background: var(--accent); color: #fff; }
+  .btn--inverse { background: #fff; color: var(--accent); }
+
+  .book-card--featured { border: 2px solid var(--accent); margin-bottom: 3.5mm; }
+  .book-card--featured .book-card__cover { flex-basis: 30mm; }
+  .book-card--featured .book-card__cover img { aspect-ratio: auto; }
+  .book-card--featured .book-card__title { font-size: 11pt; }
+
+  .book-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3mm; }
+  .book-grid .book-card__cover { flex-basis: 16mm; }
+</style>
+</head>
+<body>
+<div class="side-bg"></div>
+<div class="page">
+
+<aside>
+  <div class="photo"><img src="img/photo.jpg" alt="Nicolas Duminil"></div>
+  <ul class="contact">
+    <li><span class="ico"><svg viewBox="0 0 24 24" width="11" height="11" fill="#fff"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25c1.1.37 2.3.57 3.6.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.25 1z"/></svg></span>+33(0)7 81-44-25-58</li>
+    <li><span class="ico"><svg viewBox="0 0 24 24" width="11" height="11" fill="#fff"><path d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm1 2.2V17h16V7.2l-8 5.3z M4.6 7h14.8L12 11.9z"/></svg></span>nicolas.duminil@simplex-software.fr</li>
+    <li><span class="ico"><svg viewBox="0 0 24 24" width="11" height="11" fill="#fff"><path d="M12 2a7 7 0 0 1 7 7c0 5.2-7 13-7 13S5 14.2 5 9a7 7 0 0 1 7-7zm0 4.5A2.5 2.5 0 1 0 12 11.5 2.5 2.5 0 0 0 12 6.5z"/></svg></span>Soisy sous Montmorency, France</li>
+  </ul>
+
+  <hr class="side-rule">
+  <h2>Skills</h2>
+  <p class="skill ai"><b>AI &amp; LLM:</b> Spring AI, LangChain4j, Quarkus LangChain4j, RAG &amp; embeddings, chat memory, tool calling, Model Context Protocol (MCP), structured output, AI agents, Amazon Bedrock, Ollama, Claude Code (skills, agents, plugins, evals).</p>
+  <p class="skill"><b>Languages &amp; Frameworks:</b> Java SE/EE, Spring Boot, Quarkus, Jakarta EE, JPA, Hibernate.</p>
+  <p class="skill"><b>Microservices &amp; SOA:</b> Eclipse MicroProfile, Apache Camel, Apache CXF, REST, SOAP.</p>
+  <p class="skill"><b>DevOps &amp; Cloud:</b> Docker, Kubernetes, Helm, Jenkins, Ansible, AWS (EC2, EKS, Lambda, etc.).</p>
+  <p class="skill"><b>Integration &amp; Messaging:</b> Apache Kafka, ActiveMQ, JMS.</p>
+  <p class="skill"><b>Platforms:</b> JBoss/Wildfly, WebLogic, WebSphere, OpenShift, CloudFoundry, Keycloak.</p>
+  <p class="skill"><b>Databases:</b> Oracle, MySQL, MongoDB.</p>
+  <p class="skill"><b>Tools:</b> Maven, Git, Nexus, Artifactory, Testcontainers, CI/CD pipelines.</p>
+
+  <hr class="thick">
+  <p class="soft">AI-enabled Software Architecture &amp; Development (Java SE/EE, Spring Boot, Spring AI, Quarkus, LangChain4j, Kotlin, AWS, OpenShift, Kubernetes, Docker, Jenkins, Helm, GitLab CI/CD, JPA, Hibernate, Apache Camel, CXF, Kafka, JMS)</p>
+  <hr class="thick">
+  <p class="soft">Communication &amp; Collaboration (Bilingual French/English, fluent in Italian, working knowledge of German, Agile, DevOps, cross-functional teams, stakeholder communication)</p>
+
+  <hr class="side-rule">
+  <h2>Links</h2>
+  <div class="links">
+    <p>Blog:<a href="https://www.simplex-software.fr">https://www.simplex-software.fr</a></p>
+    <p>Books:<a href="https://www.simplex-software.fr/books/">https://www.simplex-software.fr/books/</a></p>
+    <p>Amazon Author Page:<a href="https://shorturl.at/WTBzz">https://shorturl.at/WTBzz</a></p>
+    <p>LinkedIn:<a href="https://www.linkedin.com/in/duminilnicolas/">https://www.linkedin.com/in/duminilnicolas/</a></p>
+    <p>DZone:<a href="https://dzone.com/authors/nicolasduminil">https://dzone.com/authors/nicolasduminil</a></p>
+    <p>GitHub:<a href="https://github.com/nicolasduminil">https://github.com/nicolasduminil</a></p>
+  </div>
+
+  <hr class="side-rule">
+  <h2>Languages</h2>
+  <div class="lang">French<div class="track"><div class="fill" style="width:100%"></div></div></div>
+  <div class="lang">English<div class="track"><div class="fill" style="width:100%"></div></div></div>
+  <div class="lang">Italian<div class="track"><div class="fill" style="width:100%"></div></div></div>
+  <div class="lang">German<div class="track"><div class="fill" style="width:40%"></div></div></div>
+</aside>
+
+<main>
+  <header class="masthead">
+    <h1>Nicolas DUMINIL</h1>
+    <p>Senior Software Architect / Developer</p>
+  </header>
+
+  <h2>Profile</h2>
+  <ul class="checks">
+    <li>Multilingual Senior Software Architect with 25+ years of experience in software development and enterprise architecture.</li>
+    <li>Proven expertise in Java SE/EE, SOA, Microservices, and Cloud-native application development.</li>
+    <li>Builds generative AI into Java applications with Spring AI and LangChain4j, on Spring Boot and Quarkus: RAG, tool calling, MCP, structured output and agents. Author of <i>Java AI Frameworks</i> (2026).</li>
+    <li>Deep expertise in enterprise systems architecture, integration platforms, and DevOps practices across a variety of sectors including finance, public services, and telecommunications.</li>
+    <li>Proven leadership in designing, building, and modernizing complex systems using technologies like Spring Boot, Quarkus, Kubernetes, and AWS.</li>
+    <li>Author of six published technical books and hundreds of blog articles, with a strong ability to distill complex technical concepts into accessible content for developers, stakeholders, and end users.</li>
+    <li>Proven track record in large-scale projects across Europe in finance, telecom, and public sector.</li>
+  </ul>
+
+  <h2 class="dated">Generative AI in Java <span>2024 - present</span></h2>
+  <div class="job">
+    <ul>
+      <li><i>Java AI Frameworks</i> (2026): one AI service built three ways (Spring AI on Spring Boot, LangChain4j on Spring Boot, LangChain4j on Quarkus) and graded by one shared conformance test. Covers RAG, chat memory, tools, MCP, vision, audio, structured output, observability, security and agents.<span class="refs"><a href="https://leanpub.com/javaaiframeworks">leanpub.com/javaaiframeworks</a> · <a href="https://www.simplex-software.fr/posts-archive/java-ai/">simplex-software.fr/posts-archive/java-ai</a></span></li>
+      <li>LLM applications with Quarkus and LangChain4j on local models (Ollama), and serverless foundation-model gateways with Amazon Bedrock, Quarkus and AWS Lambda; published as DZone articles.<span class="refs"><a href="https://dzone.com/articles/leveraging-the-llm-power-in-java">DZone: LLMs with Quarkus &amp; LangChain4j</a> · <a href="https://dzone.com/articles/amazon-bedrock-leveraging-foundation-models-with-q">DZone: Amazon Bedrock with Quarkus</a></span></li>
+      <li>Claude Code plugin of Spring Boot, Quarkus, Apache Camel and Jakarta EE skills and agents for AI-assisted Java development, its effect measured with Anthropic's evaluation tooling.<span class="refs"><a href="https://www.simplex-software.fr/posts-archive/claude-eval/">simplex-software.fr/posts-archive/claude-eval</a></span></li>
+    </ul>
+  </div>
+
+  <h2>Professional Experiences</h2>
+  <p class="intro">Founder &amp; Principal Consultant, <b>Simplex Software</b> (Paris, since 2004). All engagements below were delivered through Simplex Software.</p>
+
+  <div class="job">
+    <h3>Senior Java Architect</h3>
+    <h4>Thales / Tubize / 2025 - present</h4>
+    <ul>
+      <li>Member of the Thales CDP (Combat Digital Platform) team: software design, development, testing and deployment.</li>
+      <li>Stack: Java, Spring Boot, Quarkus, Kubernetes, Keycloak.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <h3>Lead Software Architect &amp; Technical Writer</h3>
+    <h4>Single Resolution Board (SRB) / Brussels / 2019 - 2024</h4>
+    <ul>
+      <li>Lead Architect &amp; Developer. Designed and developed RDS, a microservice platform for managing European bank data. Stack: Java, Spring Boot, Eclipse MicroProfile, Kafka, Spark, Docker, Kubernetes, AWS.</li>
+      <li>Authored detailed system architecture documents, onboarding manuals, and API reference documentation.</li>
+      <li>Maintained DevOps documentation for Docker, Kubernetes, and AWS-based infrastructure.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <h3>Senior Architect &amp; Documentation Lead</h3>
+    <h4>Coface, Telefonica, SCOR, Lapeyre, Vlaamse Overheid / 2018 - 2019</h4>
+    <ul>
+      <li>Architected and migrated legacy SOA systems to microservices using Spring Boot, Wildfly Swarm, Apache Camel, Kafka. Cloud deployments on AWS, OpenShift. CI/CD and IaC with Jenkins, Ansible.</li>
+      <li>Produced technical specifications, transformation documentation, and knowledge transfer guides for dev teams.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <h3>Java EE/DevOps Architect</h3>
+    <h4>BNP Paribas Fortis / Brussels / 2015 - 2017</h4>
+    <ul>
+      <li>Designed enterprise-wide digital signature platform (DocuSign). Developed REST/SOAP APIs using Java EE 7. Deployed on WebSphere and Wildfly with containerized DevOps pipeline.</li>
+      <li>Contributed to CI/CD and DevOps documentation using Docker, Kubernetes, Jenkins, OpenShift.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <h3>Senior Java Architect</h3>
+    <h4>La Poste / Paris / 2012 - 2014</h4>
+    <ul>
+      <li>Java EE backend and integration services for large-scale systems. Used Spring Boot, Camel, AWS, Docker, and Kubernetes.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <h3>Portal &amp; Enterprise Services Architect</h3>
+    <h4>RABO Bank / Utrecht / 2008 - 2011</h4>
+    <ul>
+      <li>Designed and developed Java enterprise applications with IBM WebSphere.</li>
+      <li>Authored documentation for internal portal development (JSR-286).</li>
+      <li>Developed user and admin guides for deployment and operations.</li>
+    </ul>
+  </div>
+
+  <div class="job earlier">
+    <h4>Earlier experiences highlights</h4>
+    <p style="margin:0">2004–2015: Senior Java Architect roles with ING, ERDF, RABO Bank, Société Générale, Student Loan Company, Deutsche Boerse, EADS, CAP Gemini, and more.<br>
+    Main activities: SOA/ESB architecture, BPM integration, portal development, system migration, DevOps and CI/CD implementations.</p>
+  </div>
+
+  <h2>Education</h2>
+  <div class="edu">
+    <p>DEA (Diplôme d'Études Approfondies)<br>University Pierre et Marie Curie (Paris VI) / Paris</p>
+    <p>Master's Degree in Electronics &amp; Electrotechnics<br>ESIEE Engineering School / Noisy-le-Grand</p>
+  </div>
+
+  <h2>Certifications</h2>
+  <ul class="certs">
+    <li>AWS Certified Developer</li>
+    <li>Java 11 SE Certified Developer</li>
+    <li>Sun Java Certified Programmer</li>
+    <li>Microsoft Certified Solution Developer</li>
+    <li>Oracle Certified Database Administrator</li>
+  </ul>
+
+  <h2 style="break-before: page; margin-top: 0">Published Books</h2>
+  <p class="books-intro">From J2EE to AI frameworks, more than twenty years of writing about Java enterprise development and the cloud.</p>
+
+  <article class="book-card book-card--featured">
+    <a class="book-card__cover" href="https://leanpub.com/javaaiframeworks"><img src="img/java-ai-frameworks.jpg" alt="Cover of Java AI Frameworks"></a>
+    <div class="book-card__body">
+      <span class="book-card__ribbon">Latest</span>
+      <h3 class="book-card__title"><a href="https://leanpub.com/javaaiframeworks">Java AI Frameworks</a></h3>
+      <p class="book-card__subtitle">A hands-on comparison of Spring AI and LangChain4j</p>
+      <p class="book-card__meta"><span class="book-card__tag">English</span>Leanpub &amp; Amazon, 2026</p>
+      <p class="book-card__description">Spring AI or LangChain4j? The book answers by building the same application three ways, Spring AI on Spring Boot, LangChain4j on Spring Boot and LangChain4j on Quarkus, with every capability held to one shared conformance test.</p>
+      <h4 class="book-card__highlights-title">What's inside</h4>
+      <ul class="book-card__highlights">
+        <li>Ground answers in your own documents with RAG and tune retrieval</li>
+        <li>Add memory and tools, and reach external systems over MCP</li>
+        <li>Add vision, audio, structured output, observability and security</li>
+        <li>Move from assistants to autonomous agents</li>
+      </ul>
+      <p class="book-card__actions">
+        <a class="btn btn--primary" href="https://leanpub.com/javaaiframeworks">Ebook on Leanpub</a>
+        <a class="btn btn--inverse" href="https://www.amazon.com/dp/B0HR1T5S4B">Buy on Amazon</a>
+      </p>
+    </div>
+  </article>
+
+  <div class="book-grid">
+    <article class="book-card">
+      <a class="book-card__cover" href="https://www.amazon.com/dp/B0DYZM52M5"><img src="img/quarkus.jpg" alt="Cover of 50 Shades of Quarkus RESTful Services"></a>
+      <div class="book-card__body">
+        <h3 class="book-card__title"><a href="https://www.amazon.com/dp/B0DYZM52M5">50 Shades of Quarkus RESTful Services</a></h3>
+        <p class="book-card__meta"><span class="book-card__tag">English</span>Amazon, 2025</p>
+        <p class="book-card__description">A deep dive into Java RESTful services with Quarkus: MicroProfile, synchronous, asynchronous and reactive services and clients, and their testing.</p>
+        <p class="book-card__actions"><a class="btn btn--primary" href="https://www.amazon.com/dp/B0DYZM52M5">Buy on Amazon</a></p>
+      </div>
+    </article>
+    <article class="book-card">
+      <a class="book-card__cover" href="https://www.amazon.com/dp/B0DPJ1ZFLS"><img src="img/executors.jpg" alt="Cover of 50 Shades of Java Executors"></a>
+      <div class="book-card__body">
+        <h3 class="book-card__title"><a href="https://www.amazon.com/dp/B0DPJ1ZFLS">50 Shades of Java Executors</a></h3>
+        <p class="book-card__meta"><span class="book-card__tag">English</span>Amazon, 2024</p>
+        <p class="book-card__description">Concurrent programming in Java, with a focus on executors and the latest Java 21 and 23 features.</p>
+        <p class="book-card__actions"><a class="btn btn--primary" href="https://www.amazon.com/dp/B0DPJ1ZFLS">Paperback</a><a class="btn btn--inverse" href="https://www.amazon.com/dp/B0DPJ1XY1Q">Kindle</a></p>
+      </div>
+    </article>
+    <article class="book-card">
+      <a class="book-card__cover" href="https://www.amazon.fr/dp/2409028357"><img src="img/aws-lambda.jpg" alt="Cover of AWS Lambda"></a>
+      <div class="book-card__body">
+        <h3 class="book-card__title"><a href="https://www.amazon.fr/dp/2409028357">AWS Lambda : Développez des micro-services en Java sur la plateforme serverless d'Amazon</a></h3>
+        <p class="book-card__meta"><span class="book-card__tag">French</span>ENI, 2021</p>
+        <p class="book-card__description">A complete guide to serverless with AWS Lambda: building and deploying enterprise-grade microservices with Quarkus.</p>
+        <p class="book-card__actions"><a class="btn btn--primary" href="https://www.amazon.fr/dp/2409028357">Buy on Amazon</a></p>
+      </div>
+    </article>
+    <article class="book-card">
+      <a class="book-card__cover" href="https://www.amazon.fr/dp/2409022189"><img src="img/aws.jpg" alt="Cover of AWS"></a>
+      <div class="book-card__body">
+        <h3 class="book-card__title"><a href="https://www.amazon.fr/dp/2409022189">AWS : Gérez votre infrastructure sur la plateforme cloud d'Amazon</a></h3>
+        <p class="book-card__meta"><span class="book-card__tag">French</span>ENI, 2019</p>
+        <p class="book-card__description">A journey through the AWS platform: its configuration, administration and deployment.</p>
+        <p class="book-card__actions"><a class="btn btn--primary" href="https://www.amazon.fr/dp/2409022189">Buy on Amazon</a></p>
+      </div>
+    </article>
+    <article class="book-card">
+      <a class="book-card__cover" href="https://www.amazon.fr/dp/2100064568"><img src="img/j2ee.jpg" alt="Cover of J2EE avec JBuilder 7"></a>
+      <div class="book-card__body">
+        <h3 class="book-card__title"><a href="https://www.amazon.fr/dp/2100064568">J2EE avec JBuilder 7 Enterprise</a></h3>
+        <p class="book-card__meta"><span class="book-card__tag">French</span>Dunod, 2010</p>
+        <p class="book-card__description">Java Enterprise development, today known as Jakarta EE, formerly Java EE and J2EE.</p>
+        <p class="book-card__actions"><a class="btn btn--primary" href="https://www.amazon.fr/dp/2100064568">Buy on Amazon</a></p>
+      </div>
+    </article>
+  </div>
+
+</main>
+</div>
+</body>
+</html>
