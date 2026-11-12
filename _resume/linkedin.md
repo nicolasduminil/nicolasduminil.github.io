@@ -1,65 +1,139 @@
 # LinkedIn profile update
 
-Text to paste into LinkedIn, kept in line with the CV in `resume.html`.
+Text to paste into LinkedIn: links to the books and articles, and the list of
+skills. No list of projects or dates. The links match the Books page
+(`_data/books.yml`) and the site.
 
-## Headline
+## Publications
 
-```
-Senior Java Architect · Spring Boot, Quarkus, Kubernetes · Generative AI in Java (Spring AI, LangChain4j) · Author of "Java AI Frameworks"
-```
+Add one entry per book (Profile → Add section → Recommended → Add publications).
 
-## About
+### Java AI Frameworks: A hands-on comparison of Spring AI and LangChain4j
 
-```
-Senior software architect with 25+ years of experience in Java enterprise development and architecture, working through my own company, Simplex Software, since 2004.
-
-I design and build cloud-native systems with Java, Spring Boot, Quarkus and Jakarta EE, deployed on Kubernetes, OpenShift and AWS, mostly for finance, public-sector and telecom organizations across Europe.
-
-Since 2024 I have focused on generative AI in Java: RAG, tool calling, MCP, structured output and agents, with Spring AI and LangChain4j on both Spring Boot and Quarkus. My latest book, "Java AI Frameworks" (2026), compares them by building the same application three ways, graded by one shared test.
-
-Author of six technical books and hundreds of articles on simplex-software.fr and DZone.
-```
-
-## Experience: new position
-
-- Title: Senior Java Architect
-- Company: Thales
-- Location: Tubize, Belgium
-- Dates: March 2025 – present
-- Description:
-
-```
-Member of the Thales CDP (Combat Digital Platform) team: software design, development, testing and deployment.
-Stack: Java, Spring Boot, Quarkus, Kubernetes, Keycloak.
-```
-
-## Experience: edit the SRB position
-
-- Set the end date to December 2024.
-
-## Publications: add
-
-- Title: Java AI Frameworks: A hands-on comparison of Spring AI and LangChain4j
 - Publisher: Leanpub
 - Date: 2026
 - URL: https://leanpub.com/javaaiframeworks
-- Description:
 
 ```
 The same AI service built three ways (Spring AI on Spring Boot, LangChain4j on Spring Boot, LangChain4j on Quarkus) and graded by one shared conformance test. Covers RAG, memory, tools, MCP, vision, audio, structured output, observability, security and agents.
 ```
 
-## Skills: add
+### 50 Shades of Quarkus RESTful Services
 
+- Publisher: Amazon
+- Date: 2025
+- URL: https://www.amazon.com/dp/B0DYZM52M5
+
+```
+A deep dive into Java RESTful services with Quarkus: MicroProfile, synchronous, asynchronous and reactive services and clients, and their testing.
+```
+
+### 50 Shades of Java Executors
+
+- Publisher: Amazon
+- Date: 2024
+- URL: https://www.amazon.com/dp/B0DPJ1ZFLS
+
+```
+Concurrent programming in Java, with a focus on executors and the latest Java 21 and 23 features.
+```
+
+### AWS Lambda : Développez des micro-services en Java sur la plateforme serverless d'Amazon
+
+- Publisher: ENI
+- Date: 2021
+- URL: https://www.amazon.fr/dp/2409028357
+
+```
+A complete guide to serverless with AWS Lambda: building and deploying enterprise-grade microservices with Quarkus.
+```
+
+### AWS : Gérez votre infrastructure sur la plateforme cloud d'Amazon
+
+- Publisher: ENI
+- Date: 2019
+- URL: https://www.amazon.fr/dp/2409022189
+
+```
+A journey through the AWS platform: its configuration, administration and deployment.
+```
+
+### J2EE avec JBuilder 7 Enterprise
+
+- Publisher: Dunod
+- Date: 2010
+- URL: https://www.amazon.fr/dp/2100064568
+
+```
+Java Enterprise development, today known as Jakarta EE, formerly Java EE and J2EE.
+```
+
+## Featured: links to books and articles
+
+Add each as a link (Profile → Featured → + → Add a link).
+
+- All my books: https://www.simplex-software.fr/books/
+- All my articles: https://www.simplex-software.fr/posts/
+- My DZone articles: https://dzone.com/authors/nicolasduminil
+- Spring AI or LangChain4j? One App, Three Stacks, One Test: https://www.simplex-software.fr/posts-archive/java-ai/
+- Using Anthropic evaluation to check Claude Code plugin efficiency: https://www.simplex-software.fr/posts-archive/claude-eval/
+- Leveraging the LLMs Power with Quarkus and LangChain4j: https://dzone.com/articles/leveraging-the-llm-power-in-java
+- Amazon Bedrock: Leveraging Foundation Models with Quarkus and AWS Lambda: https://dzone.com/articles/amazon-bedrock-leveraging-foundation-models-with-q
+
+## Skills
+
+LinkedIn keeps skills as one flat list. Add them one at a time (Skills → + → Add skill), picking LinkedIn's suggestion when its wording differs. Then pick the first five as Top skills (About → pencil → Skills).
+
+Top skills:
+
+- Java
+- Spring Boot
+- Quarkus
 - Spring AI
 - LangChain4j
+
+Other skills:
+
+- Generative AI
 - Retrieval-Augmented Generation (RAG)
 - Model Context Protocol (MCP)
-- Generative AI
+- AI Agents
+- Amazon Bedrock
+- Ollama
+- Claude Code
+- Jakarta EE
+- Kotlin
+- JPA
+- Hibernate
+- Microservices
+- Service-Oriented Architecture (SOA)
+- Eclipse MicroProfile
+- Apache Camel
+- Apache CXF
+- REST APIs
+- SOAP
+- Apache Kafka
+- ActiveMQ
+- JMS
+- Amazon Web Services (AWS)
+- AWS Lambda
+- Docker
+- Kubernetes
+- Helm
+- OpenShift
+- Cloud Foundry
+- Jenkins
+- GitLab CI/CD
+- Ansible
 - Keycloak
-
-## Featured: add links
-
-- https://leanpub.com/javaaiframeworks
-- https://www.simplex-software.fr/posts-archive/java-ai/
-- https://www.simplex-software.fr/assets/files/resume-nicolas.pdf
+- WildFly / JBoss
+- WebLogic
+- WebSphere
+- Oracle Database
+- MySQL
+- MongoDB
+- Maven
+- Git
+- Testcontainers
+- Software Architecture
+- Technical Writing
