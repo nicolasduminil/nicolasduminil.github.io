@@ -1,7 +1,7 @@
 ---
 title: "Reactive vs Virtual Threads on Quarkus"
 author: "Nicolas Duminil"
-date: 2026-11-06
+date: 2026-11-16
 tags: [java, quarkus, mutiny, virtual-threads, concurrency, performance]
 categories:
   - "Java"
