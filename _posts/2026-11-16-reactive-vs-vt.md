@@ -331,7 +331,6 @@ Regarding the choice between the two styles, the evidence collected here support
 4. Combine the models in the narrow case of a blocking dependency within an existing reactive pipeline, under concurrency sufficient to exhaust the worker pool. Below that level, the combination provides no measurable benefit, and a pipeline without any blocking call requires no combination at all.
 5. Whichever style is chosen, assert the thread in the tests, identify the true limiting resource before attributing a result to a model, and vary the order of benchmark runs.
 
-The most durable conclusion concerns method rather than technology. Almost every significant finding of this work, namely the polymorphism of connection failures, the invisibility of the absent virtual thread, the pool limit and the warm-up effect, emerged from an experiment that contradicted a confident expectation of the author. The two concurrency models emerged from this comparison with their reputations intact, which is more than can be said for the first version of the benchmark.
 
 ## References
 
