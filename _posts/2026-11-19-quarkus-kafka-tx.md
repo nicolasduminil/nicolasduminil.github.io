@@ -17,7 +17,7 @@ But Kafka isn't a message broker like the others and, as opposed to classical on
 
 It establishes what a Kafka transaction actually contains, explains the protocol by which it reaches its outcome, and then measures how much atomicity becomes available when a Kafka transaction is chained around a database transaction in the same handler. The working implementation is the `transfer-kafka` module of the [`quarkus-distributed-tx`](https://github.com/nicolasduminil/quarkus-distributed-tx) repository, where it joins an XA and a saga implementation of the same money transfer use case, all three exposing the same REST contract and exercised by the same shared test suite.
 
-The article is illustrated by a use mplementating of a money transfer application. between two accounts, which debits the source account, credits the destination account and records the movement as a transfer. It exposes a REST contract and satisfies an abstract test class.
+The article is illustrated by a use case implementating a money transfer application. It manages standing orders between two accounts, by debiting the source and crediting the destination account, and records the movement as a transfer. It exposes a REST contract and satisfies an abstract test class.
 
 ---
 
