@@ -183,6 +183,8 @@ public class TransferRequestListener
       try
       {
         apply(requestId, message.getPayload()).ifPresent(tx::send);
+        if (failureInjection.consumeHalt(requestId))
+          Runtime.getRuntime().halt(1);
         return Uni.createFrom().voidItem();
       }
       catch (RuntimeException runtimeException)
@@ -249,7 +251,7 @@ public class TransferRequestListener
 }
 ```
 
-The five injected members cover database access, failure injection and the Kafka side of the handler. `TransferService` and `TransferRepository` are inherited from the shared `transfer-core` module, and `ProcessedRequestRepository` is declared in this module to reach the `PROCESSED_REQUESTS` table that section 9 describes, these three members being the ones through which the handler reaches the two databases. `FailureInjection` is a small application scoped bean that defines a counter through which a test requests a deterministic interruption, and section 7 explains the position at which that interruption takes effect. The `emitter` field is the Kafka side of the handler, declared as `KafkaTransactions<TransferEvent>` and bound by `@Channel` to the outgoing channel named `transfer-events`. That declaration is what causes Quarkus to configure a transactional producer for the channel, as section 6 shows.
+The five injected members cover database access, failure injection and the Kafka side of the handler. `TransferService` and `TransferRepository` are inherited from the shared `transfer-core` module, and `ProcessedRequestRepository` is declared in this module to reach the `PROCESSED_REQUESTS` table that section 9 describes, these three members being the ones through which the handler reaches the two databases. `FailureInjection` is a small application scoped bean that holds the request identifiers for which a deterministic interruption has been requested, and section 7 explains the position at which that interruption takes effect. The `emitter` field is the Kafka side of the handler, declared as `KafkaTransactions<TransferEvent>` and bound by `@Channel` to the outgoing channel named `transfer-events`. That declaration is what causes Quarkus to configure a transactional producer for the channel, as section 6 shows.
 
 The `deliveries` map counts the arrivals of each request identifier, and the two accessor methods publish that count so that a test may assert upon it. The count is the observable on which the demonstration of rollback rests, because an aborted transaction is established by a second delivery of the same message and the count reflects that. A `ConcurrentHashMap` holds the counters because the Kafka worker threads access the map concurrently.
 
@@ -260,6 +262,8 @@ That single call performs four operations. It begins a Kafka transaction, it sup
 The body of the function is wrapped in a `try` block whose `catch` clause converts a `RuntimeException` into a failed `Uni`. The conversion matters because the function executes inside a Mutiny pipeline, in which an exception thrown synchronously and a failure carried by the returned `Uni` reach different handlers. Returning the failure keeps the outcome on the path that `withTransactionAndAck(...)` observes. This is the path that aborts the transaction and leaves the offset uncommitted.
 
 The call `apply(requestId, message.getPayload()).ifPresent(tx::send)` performs the work and publishes its outcome. The method `apply` returns an `Optional`, and `ifPresent(...)` sends an event exactly when one is present, through the `TransactionalEmitter` and therefore inside the open transaction. The empty case belongs to a request already recorded in `PROCESSED_REQUESTS`, which produces no event.
+
+The two lines that follow it serve the demonstration rather than the mechanism. The position between that call and the return of the `Uni` is the residual window of section 9, because the database transaction has committed by then while the Kafka transaction awaits the outcome of the `Uni`. A test or a reader may arm a termination at that position for one request identifier, through the endpoint named in section 11, and `Runtime.getRuntime().halt(1)` ends the process there without running the shutdown hooks that would otherwise close the producer and so decide the transaction.
 
 The method `apply` arranges the three possible outcomes of a request. It first consults the `PROCESSED_REQUESTS` table in a transaction of its own and returns an empty `Optional` when the request identifier is already present, which is the idempotent path of section 9. Otherwise, it delegates to `complete(...)`. An `ApplicationException`, which is the type the shared transfer service throws when the business refuses an operation, is caught and routed to `reject(...)`, whereas every other runtime exception leaves the method and reaches the `catch(...)` clause of the caller. That one distinction is the policy stated in section 8.
 
@@ -335,11 +339,11 @@ An interruption occurring while the Kafka transaction is still open produces the
 
 ![Sequence diagram of the rolling back path](/assets/images/03-rolling-back-path.png)
 
-The failure is injected on one delivery only. A test calls `armOnce` with the request identifier, which sets a counter held against that identifier to one. The method `complete` then calls `failureInjection.consume(requestId)`, which decrements the counter and returns true while its value remains positive. The failure therefore occurs on the first delivery of the record, and every subsequent delivery of the same record proceeds normally. The demonstration consists of two deliveries, and the two are described in turn.
+The failure is injected on one delivery only. A test calls `armOnce` with the request identifier, which records that identifier as armed. The method `complete` then calls `failureInjection.consume(requestId)`, which removes the identifier and returns true when it was present, so one arming yields one interruption. The failure therefore occurs on the first delivery of the record, and every subsequent delivery of the same record proceeds normally. The demonstration consists of two deliveries, and the two are described in turn.
 
 The position of the injected failure is what makes the first delivery a rollback of both resources. The exception is thrown inside the JTA transaction, after the balances have been updated in the `accounts` database and the transfer row together with the `PROCESSED_REQUESTS` row have been written to the `xfers` database, and before Narayana commits. All three writes therefore belong to a transaction that rolls back, and because both datasources are XA resources of that single transaction, the two databases roll back together. The same exception then leaves the function given to `withTransactionAndAck(...)` as a failed `Uni`, which aborts the Kafka transaction, and the abort discards the produced event and the consumed offset together. The consumer position consequently remains where it was, and the broker delivers the same record a second time.
 
-On the second delivery the counter stands at zero, so `failureInjection.consume(requestId)` returns false and no exception is thrown, and `PROCESSED_REQUESTS` holds no row for the request, because the first attempt committed nothing. The delivery therefore updates the two PosrgreSQL databases, records the request identifier, publishes the event and commits, exactly as section 6 described.
+On the second delivery the identifier is no longer armed, so `failureInjection.consume(requestId)` returns false and no exception is thrown, and `PROCESSED_REQUESTS` holds no row for the request, because the first attempt committed nothing. The delivery therefore updates the two PostgreSQL databases, records the request identifier, publishes the event and commits, exactly as section 6 described.
 
 Four facts are observable once the sequence has settled. The balances differ from their initial values by one amount rather than by two. One transfer row exists. One outcome event carrying the status `COMPLETED` is visible to a consumer reading with `isolation.level=read_committed`. The listener counted two deliveries of the request identifier.
 
@@ -370,7 +374,7 @@ One detail of that routing requires explicit statement, because it is a common s
 
 The database commits before the Kafka transaction does, so an interval separates the two commits.
 
-The case examined in this section is hypothetical. Its premise is that the process terminates during that interval which separates the two commits, for a reason outside the application, such as the container being stopped, the node failing or the operating system ending the process. No instruction in the handler produces that termination, and the implementation has no means of preventing it.
+The case examined in this section is hypothetical as far as production behaviour goes. Its premise is that the process terminates during that interval which separates the two commits, for a reason outside the application, such as the container being stopped, the node failing or the operating system ending the process. The handler carries no instruction that produces such a termination on its own account, and the implementation has no means of preventing one. A demonstration facility does stage it deliberately, through the two lines of section 5.3 that terminate the process at that position for one request identifier once it has been armed, and section 11 gives the commands.
 
 Suppose therefore that the process ends after Narayana has committed the database transaction and before the Kafka transaction has been decided. The database change survives, because a committed transaction is durable. The Kafka transaction is undecided, because the application that would have committed it no longer exists. The coordinator will eventually abort it, which leaves the consumed offset uncommitted.
 
@@ -448,9 +452,18 @@ curl -s -XPOST http://localhost:8095/kafka/fail-once/demo-2
 curl -s -XPOST -H 'Content-Type: application/json' -d "$BODY" \
   'http://localhost:8095/kafka/requests?requestId=demo-2'
 curl -s http://localhost:8095/kafka/deliveries
+
+curl -s -XPOST http://localhost:8095/kafka/halt-once/demo-3
+curl -s -XPOST -H 'Content-Type: application/json' -d "$BODY" \
+  'http://localhost:8095/kafka/requests?requestId=demo-3'
+docker compose up -d
+curl -s http://localhost:8095/xfers
+curl -s http://localhost:8095/kafka/events
 ```
 
 The second sequence injects one failure, so the delivery count for `demo-2` becomes two while the balance moves once.
+
+The third sequence stages the residual window of section 9. The process ends inside that window, the stack is started again, and the two readings that follow the restart show a completed transfer row beside an absence of any event for `demo-3`, which is the exposure the section describes. The restarted process also resolves the abandoned Kafka transaction as that section explains, and the redelivered request leaves the balance as the first attempt left it, because `PROCESSED_REQUESTS` already holds its row.
 
 ## 12. Comparison with the Two Earlier Implementations
 
@@ -469,7 +482,7 @@ The property distinguishing the chained Kafka and JTA arrangement from the XA an
 
 ## 13. The Present and the Future
 
-The arrangement described here is the strongest available today for an application that consumes a message and must change a database as a consequence. 
+The arrangement described here is the strongest available today for an application that consumes a message and must change a database as a consequence.
 
 ### 13.1 Kafka as a participant in an external two phase commit
 
@@ -477,20 +490,20 @@ The arrangement described here is the strongest available today for an applicati
 
 ### 13.2 The transactional outbox, and the belief that it is the only option
 
-A widely held view holds that the transactional outbox, driven by change data capture, is the only correct way to change a database and publish to Kafka in one operation. The view deserves examination rather than contradiction, because the pattern it recommends is sound and because the reasoning behind the view contains one accurate observation and one conflation.
+A widely held view holds that the transactional outbox, driven by change data capture, is the only correct way to change a database and publish to Kafka in one operation. The view deserves a carreful examination.
 
 The pattern operates as follows. The application writes the business rows and a row describing the event to be published into the same database, inside one local transaction. Publication becomes a separate concern, carried out afterward by a relay that reads the outbox and writes to Kafka. In the Debezium form of that relay the reading is performed through logical decoding of the PostgreSQL write ahead log over the streaming replication protocol, which means the relay observes committed changes as the database records them rather than by polling the outbox table, and the [Outbox Event Router](https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html) transformation turns each captured row into a message whose topic derives from the aggregate type and whose key derives from the aggregate identifier. A simpler variant replaces change data capture with a process that queries the outbox table on a schedule, and that variant is the one the word polling describes accurately.
 
 The upsides of this pattern are:
 
-- atomicity becomes local, since one database transaction covers both the business change and the intent to publish, so no distributed protocol participates in the critical path;
+- atomicity becomes local, since one database transaction covers both the business change and the intent to publish, so no distributed protocol participates in the critical path
 - availability improves, since the event is durable once that transaction commits, and a broker that is unreachable delays publication while leaving the business operation unaffected.
 
 But they aren't for free as the following costs accompany them:
 
-- the deployment requires an additional component, namely Kafka Connect with a specialized connector;
-- the database requires an output plugin for logical decoding and a replication slot;
-- publication becomes asynchronous, so the event appears some time after the commit rather than within the operation that caused it;
+- the deployment requires an additional component, namely Kafka Connect with a specialized connector
+- the database requires an output plugin for logical decoding and a replication slot
+- publication becomes asynchronous, so the event appears some time after the commit rather than within the operation that caused it
 - the outbox table requires pruning.
 
 The downside of the pattern concerns direction, and it is the subject of section 4. An outbox addresses the outbound direction, in which a database change must produce an event. The arrangement described in this article addresses the inbound direction, in which a message must produce a database change. Applied to the inbound direction, an outbox covers one half of the problem, because the resource that must return to its previous value is the consumer offset, and no table in the database holds it. An application may close that half by recording the consumed offset in the database as well and by seeking to the recorded position whenever the consumer starts, which makes the database the single authority over both the effect and the progress. That arrangement is correct, and it is the natural companion of an outbox, at the cost of managing partition assignment and seeking explicitly, which is the work that `withTransactionAndAck` performs here through a single argument.
