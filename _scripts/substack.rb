@@ -13,7 +13,8 @@
 # leaves that line out and the box gives the URL to enter there instead.
 #
 # Changes made for both:
-#   - tables become aligned monospace blocks (neither editor has tables);
+#   - narrow tables become aligned monospace blocks and wide ones become one
+#     labelled list per row (neither editor has tables);
 #   - code blocks lose syntax highlighting (neither editor has it);
 #   - site-relative links and images become absolute URLs;
 #   - images wrapped in a link are listed at the top, because both editors drop
@@ -23,10 +24,13 @@ require 'cgi'
 require 'date'
 require 'fileutils'
 require 'kramdown'
+require 'kramdown-parser-gfm'
 require 'net/http'
 require 'yaml'
 
 ROOT = File.expand_path('..', __dir__)
+# Above this width an aligned table needs a horizontal scrollbar in both editors.
+MAX_TABLE_WIDTH = 90
 
 post = ARGV.find { |a| !a.start_with?('--') }
 abort "usage: ruby _scripts/substack.rb _posts/<post>.md [--medium] [--no-open]" unless post && File.file?(post)
@@ -52,17 +56,34 @@ slug = meta['slug'] || File.basename(post, '.*').sub(/\A\d{4}-\d{1,2}-\d{1,2}-/,
 path = meta['permalink'] || setting(config, 'permalink').gsub(':collection', 'posts').gsub(':title', slug)
 canonical = site + path
 
-# Substack has no tables: turn each Markdown table into an aligned monospace block.
+# Neither editor has tables. One whose aligned monospace form stays within
+# MAX_TABLE_WIDTH columns becomes such a block, which keeps the grid readable. A
+# wider one would arrive as a block with a horizontal scrollbar showing a single
+# column on a telephone, so each of its rows becomes a labelled list instead.
 body = body.gsub(/((?:^[ \t]*\|.*\|[ \t]*\n)+)/) do
   rows = Regexp.last_match(1).lines.map do |line|
-    line.strip.delete_prefix('|').delete_suffix('|').split('|').map { |cell| cell.strip.delete('`') }
+    line.strip.delete_prefix('|').delete_suffix('|').split('|').map(&:strip)
   end
   rows.reject! { |row| row.all? { |cell| cell.match?(/\A:?-+:?\z/) } }
-  widths = rows.map(&:size).max.times.map { |i| rows.map { |row| row[i].to_s.length }.max }
-  lines = rows.map do |row|
-    widths.each_index.map { |i| i.zero? ? row[i].to_s.ljust(widths[i]) : row[i].to_s.rjust(widths[i]) }.join('   ').rstrip
+  widths = rows.map(&:size).max.times.map { |i| rows.map { |row| row[i].to_s.delete('`').length }.max }
+  aligned = rows.map do |row|
+    widths.each_index.map do |i|
+      cell = row[i].to_s.delete('`')
+      i.zero? ? cell.ljust(widths[i]) : cell.rjust(widths[i])
+    end.join('   ').rstrip
   end
-  "```\n#{lines.join("\n")}\n```\n"
+  if rows.size < 2 || aligned.map(&:length).max.to_i <= MAX_TABLE_WIDTH
+    "```\n#{aligned.join("\n")}\n```\n"
+  else
+    headers = rows.first
+    rows.drop(1).map do |row|
+      label = headers[0].to_s.empty? ? row[0].to_s : "#{headers[0]}: #{row[0]}"
+      bullets = headers.each_index.drop(1).filter_map do |i|
+        "- #{headers[i]}: #{row[i]}" unless row[i].to_s.empty?
+      end
+      "#{label}\n\n#{bullets.join("\n")}\n"
+    end.join("\n")
+  end
 end
 body = body.gsub(/\{%-?\s*(raw|endraw)\s*-?%\}/, '')
 
